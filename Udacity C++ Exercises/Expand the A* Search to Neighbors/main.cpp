@@ -108,17 +108,14 @@ void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &openlist, vector
       // TODO: Increment g value, compute h value, and add neighbor to open list.
 
 // } TODO: End the function
-void ExpandNeighbors(const vector<int> current, const int goal[2], vector<vector<int>> &open, vector<vector<State>> grid){
+void ExpandNeighbors(const vector<int> current, const int goal[2], vector<vector<int>> &open, vector<vector<State>> &grid){
   int x = current[0];
   int y = current[1];
   for(const auto &n : delta){
     if(CheckValidCell((x + n[0]), (y + n[1]), grid)){
-      cout << "For n being " << n[0] << " and " << n[1] << "\n";
-      cout << "x2: " << (x + n[0]) << " and y2: " << (y + n[1]) << "\n";
       int g = current[2] + 1;
       int h = Heuristic((x + n[0]), (y + n[1]), goal[0], goal[1]);
-      vector<int> node = {(x + n[0]), (y + n[1]), g, h};
-      open.push_back(node);
+      AddToOpen((x + n[0]), (y + n[1]), g, h, open, grid);
     }
   }
 }
